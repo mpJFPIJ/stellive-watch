@@ -28,6 +28,28 @@ class Fake:
         raise AssertionError(endpoint)
 
 class CollectorTests(unittest.TestCase):
+    def test_replay_channel_link_does_not_hide_edited_video(self):
+        item=video(title='오늘의 게임 하이라이트',duration='PT8M')
+        item['snippet']['description']='다시보기 채널 : https://www.youtube.com/@replay'
+        self.assertEqual(c.classify(item,'member')[0],'include')
+    def test_music_premiere_metadata_does_not_hide_cover(self):
+        item=video(title='노래 제목 / Cover',duration='PT4M')
+        item['snippet']['categoryId']='10'
+        item['liveStreamingDetails']={'actualStartTime':'2023-01-07T10:00:00Z','actualEndTime':'2023-01-07T10:06:00Z','scheduledStartTime':'2023-01-07T10:00:00Z'}
+        for category in ('10','22','24'):
+            item['snippet']['categoryId']=category
+            self.assertEqual(c.classify(item,'member')[0],'include')
+        item['snippet']['title']='노래방 방송 풀영상 Cover 모음'
+        self.assertEqual(c.classify(item,'member')[0],'review')
+    def test_legacy_two_minute_video_is_not_a_three_minute_short(self):
+        self.assertEqual(c.classify(video(duration='PT1M1S'),'official')[0],'include')
+        self.assertEqual(c.classify(video(duration='PT2M'),'member')[0],'include')
+        self.assertEqual(c.classify(video(duration='PT1M'),'member')[0],'review')
+        self.assertEqual(c.classify(video(published='2026-01-01T00:00:00Z',duration='PT2M'),'member')[0],'review')
+    def test_true_live_archive_stays_in_review(self):
+        item=video(title='오늘 게임 방송',duration='PT3H')
+        item['liveStreamingDetails']={'actualStartTime':'2023-01-07T10:00:00Z'}
+        self.assertEqual(c.classify(item,'member')[0],'review')
     def test_request_budget_counts_network_retries(self):
         error=HTTPError('https://example.invalid',503,'test',{},io.BytesIO(b'{}'))
         client=c.YouTubeClient('PRIVATE_KEY_FOR_TEST',max_calls=2)
@@ -54,7 +76,7 @@ class CollectorTests(unittest.TestCase):
         self.assertFalse(c.in_period('2023-01-06T14:59:59Z',CFG))
         self.assertTrue(c.in_period('2024-12-02T14:59:59Z',CFG))
         self.assertFalse(c.in_period('2024-12-02T15:00:00Z',CFG))
-        self.assertEqual(c.classify(video(duration='PT2M'),'member')[0],'review')
+        self.assertEqual(c.classify(video(published='2026-01-01T00:00:00Z',duration='PT2M'),'member')[0],'review')
         self.assertEqual(c.classify(video(title='클립 #shorts'),'member')[0],'exclude')
         self.assertEqual(c.classify(video(title='무편집 다시보기',duration='PT2H'),'member')[0],'review')
         self.assertEqual(c.classify(video(duration='PT2H'),'member')[0],'include')

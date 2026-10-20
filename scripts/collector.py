@@ -19,6 +19,8 @@ VIDEO_ID = re.compile(r'^[A-Za-z0-9_-]{11}$')
 CHANNEL_ID = re.compile(r'^UC[A-Za-z0-9_-]{22}$')
 VOD = re.compile(r'풀영상|풀버전|풀\s*다시보기|무편집|노컷|다시보기|방송\s*전체|\bvod\b|\bfull\s*(stream|vod|archive)\b',re.I)
 FAN = re.compile(r'스텔라이브|스텔라|칸나|유니|후야|히나|마시로|리제|타비|시부키|아오쿠모|하나코|나나|리코|토아|코가네|히요리|메리|\b린\b|\b랑\b',re.I)
+MUSIC = re.compile(r'\bcover\b|커버|뮤직\s*비디오|music\s*video|\bM/?V\b|歌ってみた',re.I)
+BROADCAST = re.compile(r'노래방|歌枠|karaoke|雑談|잡담|방송|\bstream\b|配信|합방',re.I)
 
 def parse(value):
     result = datetime.fromisoformat(value.replace('Z','+00:00'))
@@ -61,9 +63,17 @@ def classify(item,group):
     if re.search(r'(?<!\w)#shorts\b',title,re.I) or any(str(t).lower()=='shorts' for t in sn.get('tags',[])):
         return 'exclude','#shorts 표기: 수동 복구 가능'
     reasons=[]
-    if duration(item.get('contentDetails',{}).get('duration'))<=180: reasons.append('3분 이하: Shorts 여부 확인')
-    if VOD.search(text): reasons.append('풀버전/VOD 의심: 편집본인지 확인')
-    if item.get('liveStreamingDetails',{}).get('actualStartTime'): reasons.append('라이브 메타데이터: 편집 여부 확인')
+    # Public before the three-minute change means uploaded before it too.
+    # Use a one-day buffer because the announced rollout date has no timezone.
+    published=sn.get('publishedAt')
+    short_limit=60 if published and parse(published)<datetime(2024,10,14,tzinfo=UTC) else 180
+    if duration(item.get('contentDetails',{}).get('duration'))<=short_limit: reasons.append(f'{short_limit}초 이하: Shorts 여부 확인')
+    # Description footers often link another channel's VODs; that is not this video's format.
+    if VOD.search(title): reasons.append('제목에 풀버전/VOD 표시: 편집본인지 확인')
+    live=item.get('liveStreamingDetails',{})
+    music_release=bool(MUSIC.search(title) and not BROADCAST.search(title) and live.get('actualEndTime'))
+    # Music premieres also carry liveStreamingDetails; do not mistake them for full streams.
+    if live.get('actualStartTime') and not music_release: reasons.append('라이브 메타데이터: 편집 여부 확인')
     if sn.get('liveBroadcastContent') in ('live','upcoming'): reasons.append('진행 중/예정 방송')
     if group=='fan' and not FAN.search(text): reasons.append('스텔라이브 관련성 확인')
     return ('review','; '.join(reasons)) if reasons else ('include','자동 포함 후보: 내용 확인은 별도')
