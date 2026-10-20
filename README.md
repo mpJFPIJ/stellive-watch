@@ -1,5 +1,9 @@
 # 별 따라 보기 — 스텔라이브 모바일 정주행
 
+**바로 시청:** https://mpjfpij.github.io/stellive-watch/
+
+이 저장소는 GitHub Actions가 6시간마다 수집하고 GitHub Pages로 배포합니다. 아래 설치 안내는 별도 복제본을 만들 때 사용합니다.
+
 휴대폰에서 GitHub Pages 주소를 열어 공개시각 오름차순으로 시청하는 정적 웹사이트입니다. 영상 수집과 JSON 갱신은 GitHub Actions가 맡으므로 **설치 후 PC를 켜 두지 않아도 됩니다.** API 키는 Actions Secrets에서만 사용하며, 웹사이트에는 포함하지 않습니다.
 
 **설치는 [한국어 설치 안내](docs/설치안내.md)를 1단계부터 따라 하세요.**
