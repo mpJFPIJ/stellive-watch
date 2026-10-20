@@ -1,0 +1,80 @@
+name: Update archive and deploy Pages
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'site/**'
+      - 'scripts/**'
+      - 'tests/**'
+      - 'channels.json'
+      - 'overrides.json'
+      - '.github/workflows/update.yml'
+  schedule:
+    # UTC: 00:23, 06:23, 12:23, 18:23 = KST: 09:23, 15:23, 21:23, 03:23
+    - cron: '23 */6 * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: stellive-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Python tests
+        run: python -m unittest discover -s tests -v
+      - name: Browser data logic tests
+        run: node --test tests/core.test.mjs
+      - name: Restore previous collection checkpoint
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: python scripts/restore_state.py
+      - name: Collect public YouTube metadata
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: python scripts/collector.py --budget 1800
+      - name: Save checkpoint even after collection interruption
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: collector-state
+          path: .state/state.json
+          retention-days: 1
+          if-no-files-found: ignore
+      - name: Build static mobile site
+        run: python scripts/build.py
+      - name: Check public output for secrets and personal data
+        run: python scripts/check_package.py --dist dist
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+          retention-days: 1
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v4
+        id: deployment

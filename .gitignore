@@ -1,0 +1,12 @@
+.state/
+dist/
+__pycache__/
+*.pyc
+*.sqlite3*
+*.db
+*.zip
+config.local.json
+.env*
+*progress*.json
+node_modules/
+test-results/

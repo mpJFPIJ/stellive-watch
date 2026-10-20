@@ -1,0 +1,327 @@
+[
+  {
+    "key": "stellive",
+    "name": "스텔라이브 StelLive Official",
+    "group": "official",
+    "channel_id": "UC2b4WRE5BZ6SIUWBeJU8rwg",
+    "url": "https://www.youtube.com/@stellive_official",
+    "start": "2022-12-20",
+    "related_members": [
+      "전체"
+    ]
+  },
+  {
+    "key": "kanna_music",
+    "name": "아이리 칸나 Music Official",
+    "group": "member",
+    "member": "아이리 칸나",
+    "channel_id": "UC6YnTqZidFg4WUiXpiCtSSQ",
+    "url": "https://www.youtube.com/@airikanna",
+    "start": "2023-01-07",
+    "end": "2024-12-02",
+    "related_members": [
+      "아이리 칸나"
+    ]
+  },
+  {
+    "key": "kanna_old",
+    "name": "아이리 칸나 과거 편집 (삭제됨)",
+    "group": "member",
+    "member": "아이리 칸나",
+    "channel_id": "UCKzfyYWHQ92z_2jUcSABM8Q",
+    "url": "https://www.youtube.com/channel/UCKzfyYWHQ92z_2jUcSABM8Q",
+    "start": "2023-01-07",
+    "end": "2024-12-02",
+    "enabled": false,
+    "note": "현재 삭제 상태 - 기록용",
+    "related_members": [
+      "아이리 칸나"
+    ]
+  },
+  {
+    "key": "yuni",
+    "name": "아야츠노 유니",
+    "group": "member",
+    "member": "아야츠노 유니",
+    "channel_id": "UClbYIn9LDbbFZ9w2shX3K0g",
+    "url": "https://www.youtube.com/@ayatsunoyuni",
+    "start": "2023-01-08",
+    "related_members": [
+      "아야츠노 유니"
+    ]
+  },
+  {
+    "key": "huya",
+    "name": "사키하네 후야",
+    "group": "member",
+    "member": "사키하네 후야",
+    "channel_id": "UC0YQnenKBCu5sGb7H61n6HA",
+    "url": "https://www.youtube.com/channel/UC0YQnenKBCu5sGb7H61n6HA",
+    "start": "2025-09-20",
+    "related_members": [
+      "사키하네 후야"
+    ]
+  },
+  {
+    "key": "hina",
+    "name": "시라유키 히나",
+    "group": "member",
+    "member": "시라유키 히나",
+    "channel_id": "UC1afpiIuBDcjYlmruAa0HiA",
+    "url": "https://www.youtube.com/@shirayukihina",
+    "start": "2023-06-10",
+    "note": "개별 데뷔 정확한 일자 미확인, 6/10~11 경계 수동 확인",
+    "related_members": [
+      "시라유키 히나"
+    ]
+  },
+  {
+    "key": "mashiro",
+    "name": "네네코 마시로",
+    "group": "member",
+    "member": "네네코 마시로",
+    "channel_id": "UC_eeSpMBz8PG4ssdBPnP07g",
+    "url": "https://www.youtube.com/@neneko_mashiro",
+    "start": "2023-06-10",
+    "note": "개별 데뷔 정확한 일자 미확인, 6/10~11 경계 수동 확인",
+    "related_members": [
+      "네네코 마시로"
+    ]
+  },
+  {
+    "key": "lize",
+    "name": "아카네 리제",
+    "group": "member",
+    "member": "아카네 리제",
+    "channel_id": "UC7-m6jQLinZQWIbwm9W-1iw",
+    "url": "https://www.youtube.com/@akanelize",
+    "start": "2023-06-10",
+    "note": "개별 데뷔 정확한 일자 미확인, 6/10~11 경계 수동 확인",
+    "related_members": [
+      "아카네 리제"
+    ]
+  },
+  {
+    "key": "tabi",
+    "name": "아라하시 타비",
+    "group": "member",
+    "member": "아라하시 타비",
+    "channel_id": "UCAHVQ44O81aehLWfy9O6Elw",
+    "url": "https://www.youtube.com/@arahashitabi",
+    "start": "2023-06-10",
+    "note": "개별 데뷔 정확한 일자 미확인, 6/10~11 경계 수동 확인",
+    "related_members": [
+      "아라하시 타비"
+    ]
+  },
+  {
+    "key": "shibuki",
+    "name": "텐코 시부키",
+    "group": "member",
+    "member": "텐코 시부키",
+    "channel_id": "UCYxLMfeX1CbMBll9MsGlzmw",
+    "url": "https://www.youtube.com/@tenkoshibuki",
+    "start": "2024-05-18",
+    "related_members": [
+      "텐코 시부키"
+    ]
+  },
+  {
+    "key": "rin",
+    "name": "아오쿠모 린",
+    "group": "member",
+    "member": "아오쿠모 린",
+    "channel_id": "UCQmcltnre6aG9SkDRYZqFIg",
+    "url": "https://www.youtube.com/@aokumorin",
+    "start": "2024-05-18",
+    "related_members": [
+      "아오쿠모 린"
+    ]
+  },
+  {
+    "key": "nana",
+    "name": "하나코 나나",
+    "group": "member",
+    "member": "하나코 나나",
+    "channel_id": "UCcA21_PzN1EhNe7xS4MJGsQ",
+    "url": "https://www.youtube.com/@hanako_nana",
+    "start": "2024-05-19",
+    "related_members": [
+      "하나코 나나"
+    ]
+  },
+  {
+    "key": "riko",
+    "name": "유즈하 리코",
+    "group": "member",
+    "member": "유즈하 리코",
+    "channel_id": "UCj0c1jUr91dTetIQP2pFeLA",
+    "url": "https://www.youtube.com/@yuzuhariko",
+    "start": "2024-05-19",
+    "related_members": [
+      "유즈하 리코"
+    ]
+  },
+  {
+    "key": "toa",
+    "name": "시즈키 토아",
+    "group": "member",
+    "member": "시즈키 토아",
+    "handle": "@ShizukiToa",
+    "url": "https://www.youtube.com/@ShizukiToa",
+    "start": "2026-10-17",
+    "note": "고유 채널 ID는 API 조회",
+    "related_members": [
+      "시즈키 토아"
+    ]
+  },
+  {
+    "key": "rang",
+    "name": "코가네 랑",
+    "group": "member",
+    "member": "코가네 랑",
+    "handle": "@coganerang",
+    "url": "https://www.youtube.com/@coganerang",
+    "start": "2026-10-17",
+    "note": "고유 채널 ID는 API 조회",
+    "related_members": [
+      "코가네 랑"
+    ]
+  },
+  {
+    "key": "hiyori",
+    "name": "하나요 히요리",
+    "group": "member",
+    "member": "하나요 히요리",
+    "handle": "@hanayo-hiyori",
+    "url": "https://www.youtube.com/@hanayo-hiyori",
+    "start": "2026-10-18",
+    "note": "고유 채널 ID는 API 조회",
+    "related_members": [
+      "하나요 히요리"
+    ]
+  },
+  {
+    "key": "mary",
+    "name": "토키노 메리",
+    "group": "member",
+    "member": "토키노 메리",
+    "handle": "@tokino-mary",
+    "url": "https://www.youtube.com/@tokino-mary",
+    "start": "2026-10-18",
+    "note": "고유 채널 ID는 API 조회",
+    "related_members": [
+      "토키노 메리"
+    ]
+  },
+  {
+    "key": "fan_starpiece",
+    "name": "별조각편집소",
+    "group": "fan",
+    "channel_id": "UC7Jv6AQNgOuptD-sMKl8AQw",
+    "url": "https://www.youtube.com/channel/UC7Jv6AQNgOuptD-sMKl8AQw",
+    "start": "2022-12-20",
+    "related_members": [
+      "종합 또는 여러 멤버"
+    ]
+  },
+  {
+    "key": "fan_harumaro",
+    "name": "하루마로",
+    "group": "fan",
+    "channel_id": "UCZ8XM84roUJ1Z3Zm0w9OD8w",
+    "url": "https://www.youtube.com/channel/UCZ8XM84roUJ1Z3Zm0w9OD8w",
+    "start": "2022-12-20",
+    "related_members": [
+      "종합 또는 여러 멤버"
+    ]
+  },
+  {
+    "key": "fan_stellazip",
+    "name": "스텔라 ZIP",
+    "group": "fan",
+    "channel_id": "UCBbCopIPwvV76uNlBRr6Hww",
+    "url": "https://www.youtube.com/channel/UCBbCopIPwvV76uNlBRr6Hww",
+    "start": "2022-12-20",
+    "related_members": [
+      "종합 또는 여러 멤버"
+    ]
+  },
+  {
+    "key": "fan_yunitunes",
+    "name": "유니 튠즈",
+    "group": "fan",
+    "channel_id": "UCxii-cMuoT0GjDMsPOHy2jg",
+    "url": "https://www.youtube.com/channel/UCxii-cMuoT0GjDMsPOHy2jg",
+    "start": "2023-01-08",
+    "related_members": [
+      "아야츠노 유니"
+    ]
+  },
+  {
+    "key": "fan_nanasongs",
+    "name": "나나 라이브 플레이리스트",
+    "group": "fan",
+    "channel_id": "UC604vjGYtJoj6DjUe-lM5jg",
+    "url": "https://www.youtube.com/channel/UC604vjGYtJoj6DjUe-lM5jg",
+    "start": "2024-05-19",
+    "related_members": [
+      "하나코 나나"
+    ]
+  },
+  {
+    "key": "fan_rinclips",
+    "name": "떠들어버 린",
+    "group": "fan",
+    "channel_id": "UC1KLe8Xq-e970Mg1iSRjM7A",
+    "url": "https://www.youtube.com/channel/UC1KLe8Xq-e970Mg1iSRjM7A",
+    "start": "2024-05-18",
+    "related_members": [
+      "아오쿠모 린"
+    ]
+  },
+  {
+    "key": "fan_stelpie",
+    "name": "스텔파이",
+    "group": "fan",
+    "channel_id": "UCO-yFBu6NMhVVCujsR4gz6A",
+    "url": "https://www.youtube.com/channel/UCO-yFBu6NMhVVCujsR4gz6A",
+    "start": "2022-12-20",
+    "related_members": [
+      "종합 또는 여러 멤버"
+    ]
+  },
+  {
+    "key": "fan_understella",
+    "name": "UNDER STELLA",
+    "group": "fan",
+    "channel_id": "UCTC0Q-hc_hLjcm7anm7h6ow",
+    "url": "https://www.youtube.com/channel/UCTC0Q-hc_hLjcm7anm7h6ow",
+    "start": "2022-12-20",
+    "related_members": [
+      "종합 또는 여러 멤버"
+    ]
+  },
+  {
+    "key": "fan_stelkingdom",
+    "name": "스텔왕국",
+    "group": "fan",
+    "channel_id": "UCO3sgTmo3fkzqsqV4yqIN5A",
+    "url": "https://www.youtube.com/channel/UCO3sgTmo3fkzqsqV4yqIN5A",
+    "start": "2022-12-20",
+    "related_members": [
+      "종합 또는 여러 멤버"
+    ]
+  },
+  {
+    "key": "fan_pastelpage",
+    "name": "파스텔 페이지",
+    "group": "fan",
+    "channel_id": "UCTlcfcXvUOSE084Fn-Va2Zw",
+    "url": "https://www.youtube.com/channel/UCTlcfcXvUOSE084Fn-Va2Zw",
+    "start": "2022-12-20",
+    "related_members": [
+      "종합 또는 여러 멤버"
+    ]
+  }
+]

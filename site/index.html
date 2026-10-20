@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="theme-color" content="#101423">
+  <meta name="description" content="스텔라이브 영상을 공개시각 순으로, 내 휴대폰에서 이어보는 개인 정주행 도구">
+  <title>별 따라 보기 · 스텔라이브 정주행</title>
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="./app.mjs"></script>
+</head>
+<body>
+<main>
+  <header class="brand"><div class="mark" aria-hidden="true">✦</div><div><p class="eyebrow">STELLIVE WATCH</p><h1>별 따라 보기</h1></div><span class="pill">모바일 정주행</span></header>
+  <p class="intro">처음의 순간부터, 별들의 시간을 따라서.</p>
+  <section class="watch" aria-label="영상 플레이어">
+    <div id="player-shell"><div id="player"><div class="player-empty"><span aria-hidden="true">✦</span><p>아래에서 영상을 골라 주세요</p><small>YouTube 공식 플레이어로 재생합니다</small></div></div></div>
+    <div class="watch-info"><p id="current-channel" class="eyebrow">YOUR NEXT CHAPTER</p><h2 id="current-title">정주행을 시작해 볼까요</h2><p id="current-meta" class="muted">공개시각 오름차순 · 한국 표준시</p>
+    <p id="player-message" role="status" aria-live="polite"></p>
+    <a id="original" class="original" href="https://www.youtube.com/" target="_blank" rel="noopener" hidden>YouTube 원본에서 보기 ↗</a>
+    <div class="play-actions"><button id="previous" disabled>← 이전</button><button id="complete" class="primary" disabled>시청 완료</button><button id="next" disabled>다음 →</button></div>
+    <div class="inline-options"><label><input type="checkbox" id="autonext" checked> 끝나면 다음 영상</label><button id="uncomplete" class="text" disabled>완료 취소</button></div>
+    <fieldset id="classification" disabled><legend>이 영상 수동 분류 <span>· 내 브라우저에 저장</span></legend><div class="classification-actions"><button data-decision="include">일반 영상 포함</button><button data-decision="exclude">Shorts·VOD 제외</button><button data-decision="review">검토 필요</button><button data-decision="auto">자동 판정 복귀</button></div></fieldset>
+    </div>
+  </section>
+  <div class="resume-actions"><button id="resume" class="primary-soft">▶ 마지막 영상 이어보기</button><button id="oldest">가장 오래된 미시청</button></div>
+  <section class="catalogue" aria-labelledby="catalogue-title">
+    <div class="section-heading"><h2 id="catalogue-title">시간을 잇는 목록</h2><span id="total" class="pill">불러오는 중</span></div>
+    <p id="sync-status" class="muted" role="status"></p>
+    <p id="notice" class="notice" role="alert" hidden></p>
+    <div class="filters"><label>보기<select id="mode"><option value="include">일반 영상</option><option value="unwatched">일반 영상 · 미시청</option><option value="review">검토 필요</option><option value="exclude">제외됨</option><option value="all">전체 영상</option></select></label><label>채널<select id="channel"><option value="">모든 채널</option></select></label><label class="search-label">검색<input id="search" type="search" placeholder="제목 또는 날짜" autocomplete="off"></label></div>
+    <p id="list-status" class="muted" aria-live="polite"></p>
+    <ol id="videos" class="videos"></ol>
+    <button id="more" class="wide" hidden>다음 목록 50개</button>
+    <button id="retry" class="wide" hidden>목록 다시 불러오기</button>
+  </section>
+  <details class="panel"><summary>시청 기록 · 백업과 복원</summary><p>기록과 수동 분류는 이 브라우저에만 저장됩니다. 기기 변경·브라우저 데이터 삭제 전에 백업하세요. YouTube 계정 기록과 동기화되지 않습니다.</p><p id="storage-status" class="muted"></p><div class="backup-actions"><button id="export">기록 백업</button><label class="file-button">기록 복원<input id="import" type="file" accept="application/json,.json"></label><button id="export-overrides">공유 분류 내보내기</button><button id="clear" class="danger">이 사이트 기록 삭제</button></div><p class="muted">공유 분류 파일은 저장소의 overrides.json으로 직접 반영할 때만 다른 기기에 적용됩니다. 복원은 최신 위치와 완료 기록을 병합합니다. 완료 취소는 영상별로 할 수 있습니다.</p></details>
+  <details class="panel"><summary>공식 · 멤버 · 팬 채널과 수집 상태</summary><p class="muted">기존 프로그램의 채널 목록을 이전했습니다. 미확인 활동일과 채널 정보는 아래 메모를 확인하세요. 목록에 없는 팬 채널은 자동 발견하지 않습니다.</p><div id="channels"></div></details>
+  <footer><p>스텔라이브 비공식 개인 정주행 도구 · YouTube 제공 영상 정보</p><p>분류·진도·완료 표시는 이 도구의 자체 기록입니다.</p><p><a href="./privacy.html">개인정보와 이용 안내</a> · <a href="https://www.youtube.com/t/terms" target="_blank" rel="noopener">YouTube 이용약관</a></p></footer>
+</main>
+<noscript>목록과 플레이어를 사용하려면 JavaScript를 켜 주세요.</noscript>
+</body></html>
