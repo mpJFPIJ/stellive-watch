@@ -28,6 +28,19 @@ class Fake:
         raise AssertionError(endpoint)
 
 class CollectorTests(unittest.TestCase):
+    def test_mixed_channel_collects_related_uploads_only(self):
+        fake=Fake();fake.pages={'':[video(title='아오쿠모 린 팬 애니메이션'),video('b'*11,title='다른 버튜버 애니메이션')],'p2':[]}
+        state=c.empty_state();c.sync(state,[{**CFG,'group':'fan','relevance':'metadata'}],fake,NOW,budget=20)
+        self.assertEqual(set(state['channels']['test']['videos']),{'a'*11})
+    def test_title_scoped_channel_does_not_match_generic_description_footer(self):
+        fake=Fake();unrelated=video('b'*11,title='오늘의 일반 게임 편집본');unrelated['snippet']['description']='스텔라이브 공식 사이트 https://stellive.me'
+        fake.pages={'':[video(title='스텔라이브 합방 하이라이트'),unrelated],'p2':[]}
+        state=c.empty_state();c.sync(state,[{**CFG,'relevance':'title'}],fake,NOW,budget=20)
+        self.assertEqual(set(state['channels']['test']['videos']),{'a'*11})
+    def test_dedicated_channel_keeps_implicit_member_clip_titles(self):
+        fake=Fake();fake.pages={'':[video(title='이거 완전 개쳐귀여움')],'p2':[]}
+        state=c.empty_state();c.sync(state,[CFG],fake,NOW,budget=20)
+        self.assertEqual(set(state['channels']['test']['videos']),{'a'*11})
     def test_replay_channel_link_does_not_hide_edited_video(self):
         item=video(title='오늘의 게임 하이라이트',duration='PT8M')
         item['snippet']['description']='다시보기 채널 : https://www.youtube.com/@replay'

@@ -225,7 +225,7 @@ async function boot(){
     channelNames[ch.key]=ch.name;
     const option=document.createElement('option');option.value=ch.key;option.textContent=ch.name;$('channel').append(option);
     const card=document.createElement('div');card.className='channel-card';const link=document.createElement('a');
-    link.textContent=`${{official:'공식',member:'멤버',fan:'팬'}[ch.group]} · ${ch.name}`;
+    link.textContent=`${{official:'공식',member:'멤버',fan:'팬·관련'}[ch.group]} · ${ch.name}`;
     const url=ch.url||'';if(/^https:\/\/(www\.)?youtube\.com\//.test(url))link.href=url;link.target='_blank';link.rel='noopener';
     const info=document.createElement('p');info.textContent=`${ch.start||'시작 제한 없음'} ~ ${ch.end||'계속'} (KST) · ${ch.enabled===false?'수집 중지':ch.pending?'소급 수집 진행 중':ch.last_success?'마지막 전체 수집 '+kst(ch.last_success):'아직 수집 전'}`;
     const code=document.createElement('code');code.textContent=ch.channel_id||'고유 ID 미확인: 첫 API 조회 시 확인';
