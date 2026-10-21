@@ -84,7 +84,7 @@ def classify(item,group):
     # Music premieres also carry liveStreamingDetails; do not mistake them for full streams.
     if live.get('actualStartTime') and not music_release: reasons.append('라이브 메타데이터: 편집 여부 확인')
     if sn.get('liveBroadcastContent') in ('live','upcoming'): reasons.append('진행 중/예정 방송')
-    if group=='fan' and not FAN.search(text): reasons.append('스텔라이브 관련성 확인')
+    if group=='fan' and not (FAN.search(text) or in_scope(sn,{'relevance':'metadata'})): reasons.append('스텔라이브 관련성 확인')
     return ('review','; '.join(reasons)) if reasons else ('include','자동 포함 후보: 내용 확인은 별도')
 
 class ApiError(Exception): pass

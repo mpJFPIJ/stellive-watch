@@ -28,6 +28,10 @@ class Fake:
         raise AssertionError(endpoint)
 
 class CollectorTests(unittest.TestCase):
+    def test_english_fan_metadata_is_recognized_as_related(self):
+        item=video(title='Fan animation highlights',duration='PT5M')
+        item['snippet']['description']='StelLive / Aokumo Rin fan animation'
+        self.assertEqual(c.classify(item,'fan')[0],'include')
     def test_mixed_channel_collects_related_uploads_only(self):
         fake=Fake();fake.pages={'':[video(title='아오쿠모 린 팬 애니메이션'),video('b'*11,title='다른 버튜버 애니메이션')],'p2':[]}
         state=c.empty_state();c.sync(state,[{**CFG,'group':'fan','relevance':'metadata'}],fake,NOW,budget=20)
