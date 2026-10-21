@@ -451,8 +451,8 @@
       "https://www.youtube.com/watch?v=I15pPHWr5hY",
       "https://www.youtube.com/watch?v=jFojnInuZqk"
     ],
-    "relevance": "title",
-    "note": "외부 관련 채널: 공통 설명란으로 무관 영상이 섞이지 않도록 제목에 스텔라이브/정식 멤버명이 있는 영상만 수집."
+    "relevance": "metadata",
+    "note": "여러 주제를 다루는 팬·외부 관련 채널: 제목·설명·태그에 스텔라이브/정식 멤버명이 있는 영상만 수집."
   },
   {
     "key": "music_6280931e15fd",
@@ -692,8 +692,8 @@
       "https://www.youtube.com/channel/UCQLfdihF1WwbuVcgJq6x6Iw",
       "https://www.youtube.com/watch?v=9byTxoRHlkU"
     ],
-    "relevance": "title",
-    "note": "외부 관련 채널: 공통 설명란으로 무관 영상이 섞이지 않도록 제목에 스텔라이브/정식 멤버명이 있는 영상만 수집."
+    "relevance": "metadata",
+    "note": "여러 주제를 다루는 팬·외부 관련 채널: 제목·설명·태그에 스텔라이브/정식 멤버명이 있는 영상만 수집."
   },
   {
     "key": "related_77cfa05822b6",
@@ -1396,8 +1396,8 @@
       "https://www.youtube.com/watch?v=yT5iRT4-H6s",
       "https://www.youtube.com/watch?v=6utEM593gS4"
     ],
-    "relevance": "title",
-    "note": "외부 관련 채널: 공통 설명란으로 무관 영상이 섞이지 않도록 제목에 스텔라이브/정식 멤버명이 있는 영상만 수집."
+    "relevance": "members",
+    "note": "외부 관련 채널: 제목의 스텔라이브/정식 멤버명 또는 설명·태그의 정식 멤버명으로 수집. 공통 스텔라이브 소개 문구만으로는 포함하지 않음."
   },
   {
     "key": "related_e61420c06cf2",
@@ -1451,8 +1451,8 @@
       "https://www.youtube.com/watch?v=05__hWKMsuI",
       "https://www.youtube.com/watch?v=pqRg4OT4BZs"
     ],
-    "relevance": "title",
-    "note": "외부 관련 채널: 공통 설명란으로 무관 영상이 섞이지 않도록 제목에 스텔라이브/정식 멤버명이 있는 영상만 수집."
+    "relevance": "metadata",
+    "note": "여러 주제를 다루는 팬·외부 관련 채널: 제목·설명·태그에 스텔라이브/정식 멤버명이 있는 영상만 수집."
   },
   {
     "key": "related_c378036e467c",
@@ -1486,8 +1486,8 @@
       "https://www.youtube.com/watch?v=71OiX45IEcE",
       "https://www.youtube.com/watch?v=Q-LnMR61KoQ"
     ],
-    "relevance": "title",
-    "note": "외부 관련 채널: 공통 설명란으로 무관 영상이 섞이지 않도록 제목에 스텔라이브/정식 멤버명이 있는 영상만 수집."
+    "relevance": "metadata",
+    "note": "여러 주제를 다루는 팬·외부 관련 채널: 제목·설명·태그에 스텔라이브/정식 멤버명이 있는 영상만 수집."
   },
   {
     "key": "related_b3c33ce55d75",
@@ -1591,8 +1591,8 @@
       "https://www.youtube.com/channel/UC-pvLn4UThsSkJunl5KfLGg",
       "https://www.youtube.com/watch?v=hYNIhxDA36k"
     ],
-    "relevance": "title",
-    "note": "외부 관련 채널: 공통 설명란으로 무관 영상이 섞이지 않도록 제목에 스텔라이브/정식 멤버명이 있는 영상만 수집."
+    "relevance": "metadata",
+    "note": "여러 주제를 다루는 팬·외부 관련 채널: 제목·설명·태그에 스텔라이브/정식 멤버명이 있는 영상만 수집."
   },
   {
     "key": "related_c8392899f861",
@@ -1719,8 +1719,8 @@
       "https://www.youtube.com/channel/UCO9alhNmbVwxlVY05qOJP5Q",
       "https://www.youtube.com/watch?v=IBc5i71XN3c"
     ],
-    "relevance": "title",
-    "note": "외부 관련 채널: 공통 설명란으로 무관 영상이 섞이지 않도록 제목에 스텔라이브/정식 멤버명이 있는 영상만 수집."
+    "relevance": "metadata",
+    "note": "여러 주제를 다루는 팬·외부 관련 채널: 제목·설명·태그에 스텔라이브/정식 멤버명이 있는 영상만 수집."
   },
   {
     "key": "related_fe16bbb556f2",
@@ -2145,8 +2145,8 @@
       "https://www.youtube.com/watch?v=HOSQjsUe6Gw",
       "https://www.youtube.com/watch?v=fssIDnBJ7Bk"
     ],
-    "relevance": "title",
-    "note": "외부 관련 채널: 공통 설명란으로 무관 영상이 섞이지 않도록 제목에 스텔라이브/정식 멤버명이 있는 영상만 수집."
+    "relevance": "metadata",
+    "note": "여러 주제를 다루는 팬·외부 관련 채널: 제목·설명·태그에 스텔라이브/정식 멤버명이 있는 영상만 수집."
   },
   {
     "key": "related_7223c9e3228c",
@@ -2256,8 +2256,8 @@
       "https://www.youtube.com/watch?v=6pBTdaXQ2pg",
       "https://www.youtube.com/watch?v=bG-W9K52XK8"
     ],
-    "relevance": "title",
-    "note": "외부 관련 채널: 공통 설명란으로 무관 영상이 섞이지 않도록 제목에 스텔라이브/정식 멤버명이 있는 영상만 수집."
+    "relevance": "metadata",
+    "note": "여러 주제를 다루는 팬·외부 관련 채널: 제목·설명·태그에 스텔라이브/정식 멤버명이 있는 영상만 수집."
   },
   {
     "key": "related_17aa1c513fb4",
@@ -5601,8 +5601,8 @@
       "https://www.youtube.com/watch?v=-qy1pA5m5X0",
       "https://www.youtube.com/watch?v=4WxCCpUisYI"
     ],
-    "relevance": "title",
-    "note": "외부 관련 채널: 공통 설명란으로 무관 영상이 섞이지 않도록 제목에 스텔라이브/정식 멤버명이 있는 영상만 수집."
+    "relevance": "metadata",
+    "note": "여러 주제를 다루는 팬·외부 관련 채널: 제목·설명·태그에 스텔라이브/정식 멤버명이 있는 영상만 수집."
   },
   {
     "key": "related_bb52d7907c58",
@@ -5778,8 +5778,8 @@
       "https://www.youtube.com/channel/UC-3GPiUGCTQkVuxAYR9qpwQ",
       "https://www.youtube.com/watch?v=DtHkJQBN89M"
     ],
-    "relevance": "title",
-    "note": "외부 관련 채널: 공통 설명란으로 무관 영상이 섞이지 않도록 제목에 스텔라이브/정식 멤버명이 있는 영상만 수집."
+    "relevance": "metadata",
+    "note": "여러 주제를 다루는 팬·외부 관련 채널: 제목·설명·태그에 스텔라이브/정식 멤버명이 있는 영상만 수집."
   },
   {
     "key": "related_01ea40f44c50",
@@ -6731,8 +6731,8 @@
       "https://www.youtube.com/watch?v=jacjnHLgJC0",
       "https://www.youtube.com/watch?v=DHWjxI3s1zk"
     ],
-    "relevance": "title",
-    "note": "외부 관련 채널: 공통 설명란으로 무관 영상이 섞이지 않도록 제목에 스텔라이브/정식 멤버명이 있는 영상만 수집."
+    "relevance": "metadata",
+    "note": "여러 주제를 다루는 팬·외부 관련 채널: 제목·설명·태그에 스텔라이브/정식 멤버명이 있는 영상만 수집."
   },
   {
     "key": "related_749208b1142a",

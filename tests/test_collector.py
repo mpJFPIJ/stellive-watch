@@ -28,6 +28,11 @@ class Fake:
         raise AssertionError(endpoint)
 
 class CollectorTests(unittest.TestCase):
+    def test_member_scoped_metadata_ignores_brand_footer_but_keeps_named_collaboration(self):
+        cfg={'relevance':'members'}
+        self.assertFalse(c.in_scope({'title':'일반 게임','description':'스텔라이브 공식 사이트'},cfg))
+        self.assertTrue(c.in_scope({'title':'합방 편집','description':'출연: 아야츠노 유니'},cfg))
+        self.assertTrue(c.in_scope({'title':'스텔라이브 오디션 후기'},cfg))
     def test_english_fan_metadata_is_recognized_as_related(self):
         item=video(title='Fan animation highlights',duration='PT5M')
         item['snippet']['description']='StelLive / Aokumo Rin fan animation'

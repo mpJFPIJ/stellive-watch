@@ -21,7 +21,9 @@ VOD = re.compile(r'풀영상|풀버전|풀\s*다시보기|무편집|노컷|다�
 FAN = re.compile(r'스텔라이브|스텔라|칸나|유니|후야|히나|마시로|리제|타비|시부키|아오쿠모|하나코|나나|리코|토아|코가네|히요리|메리|\b린\b|\b랑\b',re.I)
 MUSIC = re.compile(r'\bcover\b|커버|뮤직\s*비디오|music\s*video|\bM/?V\b|歌ってみた',re.I)
 BROADCAST = re.compile(r'노래방|歌枠|karaoke|雑談|잡담|방송|\bstream\b|配信|합방',re.I)
-RELATED = re.compile(r'스텔\s*라이브|\bstellive\b|아이리\s*칸나|airi\s*kanna|藍璃かんな|아야츠노\s*유니|ayatsuno\s*yuni|사키하네\s*후야|sakihane\s*huya|시라유키\s*히나|shirayuki\s*hina|네네코\s*마시로|neneko\s*mashiro|아카네\s*리제|akane\s*lize|아라하시\s*타비|arahashi\s*tabi|텐코\s*시부키|tenko\s*shibuki|아오쿠모\s*린|aokumo\s*rin|하나코\s*나나|hanako\s*nana|유즈하\s*리코|yuzuha\s*riko|시즈키\s*토아|shizuki\s*toa|코가네\s*랑|cogane\s*rang|하나요\s*히요리|hanayo\s*hiyori|토키노\s*메리|tokino\s*mary',re.I)
+MEMBER_PATTERN = r'아이리\s*칸나|airi\s*kanna|藍璃かんな|아야츠노\s*유니|ayatsuno\s*yuni|사키하네\s*후야|sakihane\s*huya|시라유키\s*히나|shirayuki\s*hina|네네코\s*마시로|neneko\s*mashiro|아카네\s*리제|akane\s*lize|아라하시\s*타비|arahashi\s*tabi|텐코\s*시부키|tenko\s*shibuki|아오쿠모\s*린|aokumo\s*rin|하나코\s*나나|hanako\s*nana|유즈하\s*리코|yuzuha\s*riko|시즈키\s*토아|shizuki\s*toa|코가네\s*랑|cogane\s*rang|하나요\s*히요리|hanayo\s*hiyori|토키노\s*메리|tokino\s*mary'
+MEMBER = re.compile(MEMBER_PATTERN,re.I)
+RELATED = re.compile(r'스텔\s*라이브|\bstellive\b|'+MEMBER_PATTERN,re.I)
 
 def parse(value):
     result = datetime.fromisoformat(value.replace('Z','+00:00'))
@@ -43,7 +45,7 @@ def load_channels(path):
         if not re.fullmatch(r'[a-z0-9_]+',key) or key in keys: raise ValueError('채널 key 중복/형식 오류')
         keys.add(key)
         if cfg['group'] not in ('official','member','fan'): raise ValueError('group 오류')
-        if cfg.get('relevance','all') not in ('all','metadata','title'): raise ValueError('relevance 오류')
+        if cfg.get('relevance','all') not in ('all','metadata','title','members'): raise ValueError('relevance 오류')
         if cfg.get('channel_id'):
             if not CHANNEL_ID.fullmatch(cfg['channel_id']): raise ValueError(f'{key}: 채널 ID 형식 오류')
         elif not re.fullmatch(r'@[\w.-]+',cfg.get('handle','')): raise ValueError(f'{key}: 채널 ID 또는 handle 필요')
@@ -60,7 +62,9 @@ def in_scope(sn,cfg):
     mode=cfg.get('relevance','all')
     if mode=='all':return True
     text=sn.get('title','')
-    if mode=='metadata':text+='\n'+sn.get('description','')+'\n'+' '.join(sn.get('tags',[]))
+    metadata=sn.get('description','')+'\n'+' '.join(sn.get('tags',[]))
+    if mode=='members':return bool(RELATED.search(text) or MEMBER.search(metadata))
+    if mode=='metadata':text+='\n'+metadata
     return bool(RELATED.search(text))
 
 def duration(value):
