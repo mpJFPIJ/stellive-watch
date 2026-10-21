@@ -3,7 +3,7 @@ import argparse
 import hashlib
 import json
 import shutil
-from collections import defaultdict
+from collections import defaultdict, Counter
 from datetime import timedelta
 from pathlib import Path
 try:
@@ -42,9 +42,13 @@ def build_site(state,configs,overrides,dest,now=None,shard_size=500):
         digest=hashlib.sha256(json.dumps(chunk,ensure_ascii=False,sort_keys=True).encode()).hexdigest()[:16]
         file=f'shards/{at//shard_size:05d}-{digest}.json';c.atomic_json(data/file,chunk)
         descriptors.append({'file':file,'count':len(chunk),'first':chunk[0]['published_utc'],'last':chunk[-1]['published_utc']})
-        for row in chunk: lookup[row['id'][:2]][row['id']]=file
+        # Case-fold only the bucket path: video IDs themselves remain case-sensitive.
+        # This also lets a Windows preview retain every lookup bucket.
+        for row in chunk: lookup[row['id'][:2].lower()][row['id']]=file
     for prefix,index in lookup.items(): c.atomic_json(data/f'lookup/{prefix}.json',index)
-    c.atomic_json(data/'manifest.json',{'schema':1,'generated_utc':now,'generated_kst':c.parse(now).astimezone(c.KST).isoformat(timespec='seconds'),'total':len(rows),'shards':descriptors,'channels':channels,'errors':state.get('errors',0),'budget_reached':state.get('budget_reached',False)})
+    counts={'include':0,'review':0,'exclude':0}
+    counts.update(Counter(r.get('manual') or r['suggested'] for r in rows))
+    c.atomic_json(data/'manifest.json',{'schema':1,'generated_utc':now,'generated_kst':c.parse(now).astimezone(c.KST).isoformat(timespec='seconds'),'total':len(rows),'counts':counts,'shards':descriptors,'channels':channels,'errors':state.get('errors',0),'budget_reached':state.get('budget_reached',False)})
     print(f'정적 빌드: {len(rows)}개 영상 / {len(descriptors)}개 샤드')
 
 def main():

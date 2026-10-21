@@ -30,14 +30,19 @@ export function classification(video,records) {
   const local=records[video.id]?.manual;
   return local==='auto' ? video.suggested : local || video.manual || video.suggested;
 }
-export function matches(v,records,{mode='include',channel='',query=''}={}) {
+export function matches(v,records,{mode='include',channel='',query='',year=''}={}) {
   if (channel && v.channel!==channel) return false;
+  if (year && String(new Date(Date.parse(v.published_utc)+9*3600000).getUTCFullYear())!==year) return false;
   if (query && !`${v.title} ${v.published_kst || ''}`.toLocaleLowerCase().includes(query.toLocaleLowerCase())) return false;
   const kind=classification(v,records);
   return mode==='all' || (mode==='unwatched' ? kind==='include' && !records[v.id]?.completed : kind===mode);
 }
 export function sortVideos(rows) {
   return [...rows].sort((a,b)=>Date.parse(a.published_utc)-Date.parse(b.published_utc) || (a.id<b.id ? -1 : a.id>b.id ? 1 : 0));
+}
+export function historyEntries(records,mode='continue') {
+  return Object.entries(records).filter(([,r])=>mode==='completed'?r.completed:!r.completed)
+    .sort((a,b)=>(b[1].updated||0)-(a[1].updated||0)).map(([id,r])=>({id,...r}));
 }
 export function kst(value) {
   return new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).format(new Date(value))+' KST';

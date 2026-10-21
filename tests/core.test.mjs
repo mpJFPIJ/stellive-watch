@@ -1,7 +1,18 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {validateBackup, mergeRecords, classification, matches, sortVideos, syncRecords} from '../site/core.mjs';
+import {validateBackup, mergeRecords, classification, matches, sortVideos, syncRecords, historyEntries} from '../site/core.mjs';
 const id='abcdefghijk';
+test('year filter uses the KST publication year',()=>{
+  const v={id,channel:'test',suggested:'include',published_utc:'2023-12-31T15:00:00Z'};
+  assert.equal(matches(v,{}, {year:'2024'}),true);
+  assert.equal(matches(v,{}, {year:'2023'}),false);
+});
+test('history shows newest incomplete or completed records without mutating them',()=>{
+  const records={[id]:{updated:3,position:37,completed:false},['b'.repeat(11)]:{updated:5,position:100,completed:true},['c'.repeat(11)]:{updated:4,position:10,completed:false}};
+  assert.deepEqual(historyEntries(records,'continue').map(x=>x.id),['c'.repeat(11),id]);
+  assert.deepEqual(historyEntries(records,'completed').map(x=>x.id),['b'.repeat(11)]);
+  assert.equal(records[id].position,37);
+});
 test('live synchronization accepts newer completion cancellation',()=>{
   assert.equal(syncRecords({[id]:{completed:true,updated:10}}, {[id]:{completed:false,updated:20}})[id].completed,false);
 });

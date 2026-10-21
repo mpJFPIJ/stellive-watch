@@ -8,8 +8,13 @@
 
 **설치는 [한국어 설치 안내](docs/설치안내.md)를 1단계부터 따라 하세요.**
 
+새 화면의 위치와 사용법은 [새 화면 사용법](docs/새화면사용법.md)을 확인하세요.
+
 ## 포함한 기능
 
+- 홈·영상·기록·설정 하단 탐색, 썸네일 이어보기, 채널·KST 연도 필터, 밝게/어둡게/시스템 화면 모드.
+- 집중 재생 화면을 닫으면 일시정지·위치 저장. 하단 이어보기 카드에서 같은 재생 화면을 다시 엽니다.
+- 최근 이어보기·완료 기록 목록과 삭제·미수집 영상의 원본 링크. 기존 시청 기록과 백업은 그대로 호환됩니다.
 - 기존 channels.json 27개 유지: 공식 1 · 멤버 16 · 팬 10. 삭제된 기록용 채널 1개는 enabled:false.
 - uploads 전체 페이지 소급 수집, 새 채널 추가 시 과거부터 수집, 중단 후 체크포인트 재개.
 - videos.snippet.publishedAt 기준으로 모든 채널을 통합하고 KST로 표시. 동일 초에는 영상 ID 순.
@@ -74,6 +79,7 @@ $env:PLAYWRIGHT_MODULE = '설치된 playwright 모듈의 절대경로'
 $env:BROWSER_EXECUTABLE = '설치된 Chromium 실행파일의 절대경로'
 node tests/browser-test.cjs
 node tests/player-test.cjs
+node tests/history-test.cjs
 ```
 
 ## 운영 한계

@@ -28,21 +28,27 @@ const fs=require('node:fs');const path=require('node:path');
   await context.addInitScript(()=>{
     window.__players=[];
     window.YT={PlayerState:{PLAYING:1,PAUSED:2,ENDED:0},Player:class{
-      constructor(id,options){this.options=options;this.position=options.playerVars.start||0;this.active=true;window.__players.push(this);setTimeout(()=>options.events.onReady({target:this}),0);}
+      constructor(id,options){this.options=options;this.position=options.playerVars.start||0;this.active=true;this.plays=0;window.__players.push(this);if(!window.__deferReady)setTimeout(()=>options.events.onReady({target:this}),0);}
       getVideoData(){return {video_id:this.options.videoId};}
       getCurrentTime(){return this.position;}
-      playVideo(){this.options.events.onStateChange({target:this,data:1});}
+      playVideo(){this.plays++;this.options.events.onStateChange({target:this,data:1});}
+      pauseVideo(){this.emit("onStateChange",2);this.paused=true;}
       destroy(){this.active=false;}
       emit(name,data){this.options.events[name]({target:this,data});}
     }};
   });
   const page=await context.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
-  await page.goto('http://stellive.test/');await page.locator('#videos button').first().click();
+  await page.goto('http://stellive.test/');await page.locator('[data-nav=library]').click();await page.locator('#videos button').first().click();
   await page.waitForFunction(()=>window.__players.length===1);
   await page.evaluate(()=>{const p=window.__players.at(-1);p.position=37;p.emit('onStateChange',2);});
-  await page.reload();await page.locator('#videos button').first().waitFor();await page.locator('#resume').click();
+  await page.reload();await page.locator('[data-nav=home]').click();await page.locator('#resume').click();
   await page.waitForFunction(()=>window.__players.length===1);
   assert.equal(await page.evaluate(()=>window.__players[0].options.playerVars.start),37);
+  await page.locator('#player-close').click();
+  await page.waitForFunction(()=>window.__players.at(-1).paused===true);
+  assert.equal(await page.evaluate(()=>window.__players.at(-1).paused),true);
+  await page.locator('#session-dock').click();
+  assert.equal(await page.evaluate(()=>window.__players.length),1);
   await page.evaluate(()=>window.__players.at(-1).emit('onError',153));
   assert.match(await page.locator('#player-message').innerText(),/153/);
   assert.match(await page.locator('#original').getAttribute('href'),/t=37s/);
@@ -54,26 +60,37 @@ const fs=require('node:fs');const path=require('node:path');
   await page.evaluate(()=>window.__players[0].emit('onStateChange',0));
   assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('stellive-watch-v2:/')).records['bbbbbbbbbbb'].completed),false);
   await page.locator('#complete').click();
-  const second=await context.newPage();await second.goto('http://stellive.test/');await second.locator('#videos button').nth(1).click();
+  const second=await context.newPage();await second.goto('http://stellive.test/');await second.locator('[data-nav=library]').click();await second.locator('#videos button').nth(1).click();
   await second.locator('#uncomplete').click();await page.waitForFunction(()=>document.querySelector('#complete').textContent==='시청 완료');
   // Deletion in another tab must stop this tab rather than resurrect the records.
   await second.evaluate(()=>localStorage.removeItem('stellive-watch-v2:/'));
-  await page.waitForFunction(()=>document.querySelector('#current-title').textContent==='정주행을 시작해 볼까요');
+  await page.waitForFunction(()=>!document.querySelector('#watch-dialog').open && document.querySelector('#current-title').textContent==='영상을 선택해 주세요');
   assert.equal(await page.evaluate(()=>localStorage.getItem('stellive-watch-v2:/')),null);
   // Uncached old shard after deploy refreshes the manifest and supports retry.
-  await page.reload();await page.locator('#videos button').first().waitFor();
+  await page.reload();await page.locator('[data-nav=library]').click();await page.locator('#videos button').first().waitFor();
   await page.locator('#videos button').first().click();
   version=2;
   await page.locator('#next').click();
   await page.waitForFunction(()=>document.querySelector('#current-title').textContent==='영상 2',null,{timeout:3000});
-  await page.reload();await page.locator('#videos button').first().waitFor();
+  await page.reload();await page.locator('[data-nav=library]').click();await page.locator('#videos button').first().waitFor();
   // Race: Next waits for a shard while user explicitly selects another row.
   await page.locator('#videos button').first().click();
   await page.route('http://stellive.test/data/lookup/aa.json',async route=>{await new Promise(r=>setTimeout(r,200));await route.continue();});
-  await page.locator('#next').click();await page.locator('#videos button').nth(2).click();
+  await page.locator('#next').click();await page.locator('#player-close').click();await page.locator('#videos button').nth(2).click();
   await page.waitForTimeout(300);
   assert.equal(await page.locator('#current-title').innerText(),'영상 3');
+  // Closing alone cancels a pending Next; it must never reopen the dialog.
+  await page.locator('#player-close').click();await page.locator('#videos button').first().click();
+  const playersBefore=await page.evaluate(()=>window.__players.length);
+  await page.locator('#next').click();await page.locator('#player-close').click();await page.waitForTimeout(350);
+  assert.equal(await page.locator('#watch-dialog').evaluate(d=>d.open),false);
+  assert.equal(await page.evaluate(()=>window.__players.length),playersBefore);
+  // A player becoming ready after the dialog closed must not play in the background.
+  await page.evaluate(()=>window.__deferReady=true);await page.locator('#videos button').nth(2).click();
+  await page.locator('#player-close').click();await page.locator('#watch-dialog').waitFor({state:'hidden'});
+  await page.evaluate(()=>window.__players.at(-1).emit('onReady'));
+  assert.equal(await page.evaluate(()=>window.__players.at(-1).plays),0);
   assert.deepEqual(errors,[]);
-  console.log('PASS: position 37s resume, error 153 fallback, autoplay blocked, stale player events, two-tab uncomplete/delete, navigation race');
+  console.log('PASS: 37s resume, error/autoplay fallback, stale player events, two-tab uncomplete/delete, navigation race, close cancels Next, late-ready player stays paused');
   await browser.close();
 })().catch(e=>{console.error(e);process.exit(1);});
